@@ -1,15 +1,37 @@
 <div class="container">
   <h1>{{ title }}</h1>
 
-  <div class="body">
-    <h3>Modelo de mensagem:</h3>
+  <h3>MENSAGEM:</h3>
 
-    <p><b>Nome:</b> {{ templateMessage.name }}</p>
+  <div class="body">
+    <p><b>--> Nome: </b>{{ templateMessage.name }}</p>
+    <p><b>--> Componentes:</b></p>
     <div *ngFor="let component of templateMessage.components">
-      <p>{{ component.text }}</p>
+      <div *ngIf="component.type === 'HEADER'">
+        <p><b>- Cabeçalho: </b>{{ component.text }}</p>
+      </div>
+      <div *ngIf="component.type === 'BODY'">
+        <p><b>- Corpo: </b>{{ component.text }}</p>
+      </div>
+      <div *ngIf="component.buttons">
+        <p><b>- Lista de botões:</b></p>
+        <div *ngFor="let button of component.buttons; let i = index" class="ml-2">
+          <p>{{ i + 1 + '- ' + button.text }}</p>
+        </div>
+      </div>
     </div>
-    <p><b>Status:</b> {{ templateMessage.status }}</p>
-    <p><b>Linguagem:</b> {{ templateMessage.language }}</p>
+    <p><b>--> Status: </b>{{ templateMessage.status }}</p>
+    <p><b>--> Linguagem: </b>{{ templateMessage.language }}</p>
+  </div>
+
+  <h3>FORMULÁRIO:</h3>
+  <div class="body">
+    <p><b>DESAFIO:</b> Para cada <b>botão</b>, vamos atribuir um departamento e validar se o campo foi preenchido.</p>
+    <br>
+    <p-button label="GERAR MODAL" icon="pi pi-check" [rounded]="true" severity="success" [loading]="loadingButton" (onClick)="load()"/>
   </div>
 </div>
 
+<p-dialog [(visible)]="isModal" header="Teste de validação">
+
+</p-dialog>
