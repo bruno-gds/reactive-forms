@@ -1,35 +1,39 @@
-<div class="container">
+<div class="flex flex-column align-items-center">
   <h1>{{ title }}</h1>
-
   <h3>MENSAGEM:</h3>
-
-  <div class="body">
-    <p><b>--> Nome: </b>{{ templateMessage.name }}</p>
-    <p><b>--> Componentes:</b></p>
+  <div class="flex flex-column align-self-start">
+    <p class="my-1"><b>--> Nome: </b>{{ templateMessage.name }}</p>
+    <p class="mt-0 mb-1"><b>--> Componentes:</b></p>
     <div *ngFor="let component of templateMessage.components">
       <div *ngIf="component.type === 'HEADER'">
-        <p><b>- Cabeçalho: </b>{{ component.text }}</p>
+        <p class="mt-2 mb-1"><b>- Cabeçalho: </b>{{ component.text }}</p>
       </div>
       <div *ngIf="component.type === 'BODY'">
-        <p><b>- Corpo: </b>{{ component.text }}</p>
+        <p class="my-0"><b>- Corpo: </b>{{ component.text }}</p>
       </div>
       <div *ngIf="component.buttons">
-        <p><b>- Lista de botões:</b></p>
+        <p class="my-0"><b>- Lista de botões:</b></p>
         <div *ngFor="let button of component.buttons; let i = index" class="ml-2">
-          <p>{{ i + 1 + '- ' + button.text }}</p>
+          <p class="my-0">{{ i + 1 + '- ' + button.text }}</p>
         </div>
       </div>
     </div>
-    <p><b>--> Status: </b>{{ templateMessage.status }}</p>
-    <p><b>--> Linguagem: </b>{{ templateMessage.language }}</p>
+    <p class="mt-3 mb-1"><b>--> Status: </b>{{ templateMessage.status }}</p>
+    <p class="my-0"><b>--> Linguagem: </b>{{ templateMessage.language }}</p>
   </div>
-
   <h3>FORMULÁRIO:</h3>
-  <div class="body">
+  <div class="flex flex-column align-self-start">
     <p><b>DESAFIO:</b> Para cada <b>botão</b>, vamos atribuir um departamento e validar se o campo foi preenchido.</p>
-    <br>
-    <p-button label="GERAR MODAL" icon="pi pi-check" [rounded]="true" severity="success" [loading]="loadingButton" (onClick)="load()"/>
   </div>
+  <p-button
+    class="mt-5"
+    label="GERAR MODAL"
+    icon="pi pi-check"
+    severity="success"
+    [rounded]="true"
+    [loading]="loadingButton"
+    [disabled]="disabledButton"
+    (onClick)="load()" />
 </div>
 
 <p-dialog [(visible)]="isModal" header="Teste de validação">

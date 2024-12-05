@@ -22,6 +22,7 @@ export class AppComponent {
   templateMessage: TemplateMessage;
   isModal: boolean = false;
   loadingButton: boolean = false;
+  disabledButton: boolean = false;
 
   constructor(private readonly templateService: TemplateService) {
     this.templateMessage = templateService.getTemplateMessage();
@@ -33,6 +34,7 @@ export class AppComponent {
     setTimeout(() => {
       this.loadingButton = false
       this.isModal = true;
+      this.disabledButton = true;
     }, 1000);
   }
 }
