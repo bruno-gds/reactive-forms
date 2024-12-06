@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
   disabledButton: boolean = false;
   departments: Department[] = [];
   formulario: FormGroup = new FormGroup({});
+  sendValueButtons: string[] = []
 
   constructor(
     templateService: TemplateService,
@@ -45,6 +46,8 @@ export class AppComponent implements OnInit {
         component.buttons?.forEach((button, index) => {
           if (button.text !== 'Parar promoções') {
             this.formulario.addControl(`button_${index}`, this.formBuilder.control('', Validators.required));
+          } else {
+            this.sendValueButtons.push('Parar promoções');
           }
         });
       }
@@ -58,14 +61,16 @@ export class AppComponent implements OnInit {
       this.loadingButton = false
       this.isModal = true;
       this.disabledButton = true;
+      this.sendValueButtons = [];
     }, 1000);
   }
 
   closeModal() {
     this.isModal = false;
     this.disabledButton = false;
-
-    console.log('--> Botões:', this.formulario.value);
-    console.log('--> Formulário -', this.formulario.valid);
+    for (const key in this.formulario.value) {
+      this.sendValueButtons.push(this.formulario.value[key]);
+    }
+    console.log('--> Valores dos botões para envio:', this.sendValueButtons);
   }
 }

@@ -40,7 +40,7 @@
           <p class="align-self-start">
             <b>{{ buttonDialog.text }}:</b>
           </p>
-          <div *ngIf="formulario.get('button_' + i)?.invalid && (formulario.get('button_' + i)?.dirty || formulario.get('button_' + i)?.touched); else fieldValid" class="flex flex-column">
+          <div *ngIf="formulario.get('button_' + i)?.invalid; else fieldValid" class="flex flex-column">
             <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
                         class="ng-dirty ng-invalid"
                         appendTo="body"
