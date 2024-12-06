@@ -30,26 +30,33 @@
 </div>
 
 <p-dialog [(visible)]="isModal" header="Teste de validação" [modal]="true" [style]="{ width: '40%' }">
-  <p>Para cada botão selecione um departamento:</p>
+  <p class="mt-1">Para cada botão selecione um departamento:</p>
+
   <div *ngFor="let componentDialog of templateMessage.components" class="flex flex-column">
     <div *ngIf="componentDialog.type === 'BUTTONS'" class="flex flex-column">
-      <div *ngFor="let buttonDialog of componentDialog.buttons" class="flex justify-content-between mt-2">
-        <p class="align-self-end">
-          <b>{{ buttonDialog.text }}:</b>
-        </p>
-        <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
-                    appendTo="body"
-                    [options]="departments"
-                    optionLabel="title"
-                    optionValue="id"
-                    placeholder="Selecione o departamento">
-        </p-dropdown>
-        <ng-template #optionDefault>
-          <input type="text" pInputText value="Parar promoções" [disabled]="true">
-        </ng-template>
-      </div>
+
+      <form [formGroup]="formulario">
+        <div *ngFor="let buttonDialog of componentDialog.buttons; let i = index" class="flex justify-content-between mt-2">
+          <p class="align-self-end">
+            <b>{{ buttonDialog.text }}:</b>
+          </p>
+          <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
+                      appendTo="body"
+                      [options]="departments"
+                      optionLabel="title"
+                      optionValue="id"
+                      [formControlName]="'button_' + i"
+                      placeholder="Selecione o departamento">
+          </p-dropdown>
+          <ng-template #optionDefault>
+            <input type="text" pInputText value="Parar promoções" [disabled]="true">
+          </ng-template>
+        </div>
+      </form>
+
     </div>
   </div>
+
   <ng-template pTemplate="footer" class="mt-4">
     <p-button severity="success" icon="pi pi-check" label="Enviar" [rounded]="true" (onClick)="closeModal()" />
   </ng-template>
