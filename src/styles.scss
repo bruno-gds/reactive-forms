@@ -10,3 +10,8 @@
     /* CSS to Reset */
   }
 }
+
+/* Kill event focus blue only for tag p-dropdown */
+.p-dropdown:not(.p-disabled).p-focus {
+  box-shadow: none !important;
+}
