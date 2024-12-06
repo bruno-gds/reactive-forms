@@ -37,17 +37,31 @@
 
       <form [formGroup]="formulario">
         <div *ngFor="let buttonDialog of componentDialog.buttons; let i = index" class="flex justify-content-between mt-2">
-          <p class="align-self-end">
+          <p class="align-self-start">
             <b>{{ buttonDialog.text }}:</b>
           </p>
-          <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
-                      appendTo="body"
-                      [options]="departments"
-                      optionLabel="title"
-                      optionValue="id"
-                      [formControlName]="'button_' + i"
-                      placeholder="Selecione o departamento">
-          </p-dropdown>
+          <div *ngIf="formulario.get('button_' + i)?.invalid && (formulario.get('button_' + i)?.dirty || formulario.get('button_' + i)?.touched); else fieldValid" class="flex flex-column">
+            <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
+                        class="ng-dirty ng-invalid"
+                        appendTo="body"
+                        [options]="departments"
+                        optionLabel="title"
+                        optionValue="id"
+                        [formControlName]="'button_' + i"
+                        placeholder="Selecione o departamento">
+            </p-dropdown>
+            <small *ngIf="formulario.get('button_' + i)?.hasError('required')" class="p-error mb-1">Este campo é obrigatório.</small>
+          </div>
+          <ng-template #fieldValid>
+            <p-dropdown *ngIf="buttonDialog.text !== 'Parar promoções'; else optionDefault"
+                        appendTo="body"
+                        [options]="departments"
+                        optionLabel="title"
+                        optionValue="id"
+                        [formControlName]="'button_' + i"
+                        placeholder="Selecione o departamento">
+            </p-dropdown>
+          </ng-template>
           <ng-template #optionDefault>
             <input type="text" pInputText value="Parar promoções" [disabled]="true">
           </ng-template>
@@ -58,6 +72,6 @@
   </div>
 
   <ng-template pTemplate="footer" class="mt-4">
-    <p-button severity="success" icon="pi pi-check" label="Enviar" [rounded]="true" (onClick)="closeModal()" />
+    <p-button severity="success" icon="pi pi-check" label="Enviar" [rounded]="true" [disabled]="!formulario.valid" (onClick)="closeModal()" />
   </ng-template>
 </p-dialog>

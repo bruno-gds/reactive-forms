@@ -65,7 +65,7 @@ export class AppComponent implements OnInit {
     this.isModal = false;
     this.disabledButton = false;
 
-    console.log(this.formulario.value);
-    console.log(this.formulario.valid);
+    console.log('--> Botões:', this.formulario.value);
+    console.log('--> Formulário -', this.formulario.valid);
   }
 }
