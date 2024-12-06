@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {TemplateMessage} from "../model/templateMessage";
+import {TemplateMessage} from "../model/template-message/templateMessage";
 
 @Injectable({
   providedIn: 'root'
